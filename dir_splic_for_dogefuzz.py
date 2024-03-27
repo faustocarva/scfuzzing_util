@@ -8,6 +8,8 @@ def read_csv(csv_file):
     with open(csv_file, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
+            row[0] = row[0] + ".sol"
+            row += ['','']
             data.append(row)
     return data
 
@@ -22,7 +24,7 @@ def create_subdirectories(groups, output_dir):
         subdir = os.path.join(output_dir, f'subdir{i+1}')
         os.makedirs(subdir, exist_ok=True)
         for j, entry in enumerate(group):
-            source_file = entry[0] + ".sol"
+            source_file = entry[0]
             destination_file = os.path.join(subdir, os.path.basename(source_file))
             shutil.copy(source_file, destination_file)
         write_csv(group, subdir)
